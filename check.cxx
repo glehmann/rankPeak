@@ -2,15 +2,15 @@
 #include "itkImageFileWriter.h"
 #include "itkSimpleFilterWatcher.h"
 
-#include "itkImageFilter.h"
+#include "itkRankPeakThresholdImageFilter.h"
 
 
 int main(int argc, char * argv[])
 {
 
-  if( argc != 3 )
+  if( argc != 6 )
     {
-    std::cerr << "usage: " << argv[0] << " intput output" << std::endl;
+    std::cerr << "usage: " << argv[0] << " intput output rank scale nb" << std::endl;
     std::cerr << " input: the input image" << std::endl;
     std::cerr << " output: the output image" << std::endl;
     // std::cerr << "  : " << std::endl;
@@ -26,9 +26,12 @@ int main(int argc, char * argv[])
   ReaderType::Pointer reader = ReaderType::New();
   reader->SetFileName( argv[1] );
 
-  typedef itk::ImageFilter< IType, IType > FilterType;
+  typedef itk::RankPeakThresholdImageFilter< IType, IType > FilterType;
   FilterType::Pointer filter = FilterType::New();
   filter->SetInput( reader->GetOutput() );
+  filter->SetRank( atof(argv[3]) );
+  filter->SetScale( atof(argv[4]) );
+  filter->SetNumberOfPeaks( atoi(argv[5]) );
 
   itk::SimpleFilterWatcher watcher(filter, "filter");
 

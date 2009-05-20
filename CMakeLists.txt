@@ -1,5 +1,8 @@
 #Change PROJECT_NAME to the name of your project
-PROJECT()
+PROJECT(rankPeak)
+
+
+INCLUDE_DIRECTORIES("/Users/glehmann/src/contrib-itk/binaryAttributeMorphology/")
 
 # required to avoid warnings while running cmake
 CMAKE_MINIMUM_REQUIRED(VERSION 2.4.2)
@@ -39,6 +42,7 @@ SET(Libraries
   ITKCommon
   ITKBasicFilters
   ITKIO
+  ITKStatistics
 )
 
 
